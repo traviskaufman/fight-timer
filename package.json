@@ -5,6 +5,7 @@
   "private": true,
   "author": "Travis Kaufman <travis.kaufman@gmail.com>",
   "license": "MIT",
+  "homepage": "https://fight.tools/timer",
   "dependencies": {
     "howler": "^2.0.4",
     "immutability-helper": "^2.2.2",
