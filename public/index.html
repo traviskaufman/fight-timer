@@ -19,13 +19,39 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
+    <link href="https://fonts.googleapis.com/css?family=Space+Mono:400,700" rel="stylesheet">
+    <style id="app-shell">
+      html, body {
+        height: 100%;
+        margin: 0;
+        background: black;
+        color: white;
+      }
+      body {
+        font-family: 'Space Mono', monospace;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+      }
+      main {
+        width: 100%;
+        text-align: center;
+      }
+      #app-title {
+        width: 100%;
+        border-bottom: 1px solid white;
+      }
+    </style>
     <title>Fight Timer</title>
   </head>
   <body>
-    <noscript>
-      You need to enable JavaScript to run this app.
-    </noscript>
-    <div id="root"></div>
+    <main>
+      <h1 id="app-title">Fight Timer</h1>
+      <noscript>
+        You need to enable JavaScript to run this app.
+      </noscript>
+      <div id="root">Loading...</div>
+    </main>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.

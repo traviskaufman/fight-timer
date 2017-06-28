@@ -8,7 +8,6 @@ import fightTimerApp from './reducers';
 import {sounds, timerInterval} from './middleware';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
-import './index.css';
 import bellAudio from './audio/bell.mp3';
 import bellSingleAudio from './audio/bell-single.mp3';
 import fightSticksAudio from './audio/fight-sticks.mp3';
