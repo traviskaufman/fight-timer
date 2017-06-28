@@ -1,5 +1,6 @@
 {
   "name": "fight-timer",
+  "description": "A timer application that can be used for practice in boxing, MMA, Muay Thai, and/or other combat sports",
   "version": "0.1.0",
   "private": true,
   "author": "Travis Kaufman <travis.kaufman@gmail.com>",
