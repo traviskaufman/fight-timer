@@ -1,3 +1,30 @@
+# Fight Timer :facepunch:
+
+:warning: Very much a work-in-progress :warning:
+
+A timer application that can be used for practice in boxing, MMA, Muay Thai, and/or other combat sports.
+
+I'm building this because:
+
+- I want to get some experience building an actual application using React, Redux, and RxJS
+- I want to build a Progressive Web App
+- I want a fight timer application that I can extend myself and that doesn't have a horrible UI
+
+## TODO
+
+- [ ] An actual User Interface
+- [ ] Configurable Rounds / Rest
+- [ ] Ability to save presets
+
+## Audio Credits
+
+The following credit is given to the original audio creators of the samples under `src/audio`:
+
+- `fight-sticks.mp3` - Slapstick (round warning, mixed in Audacity): https://freesound.org/people/Samulis/sounds/375712/
+- `bell.mp3` - Boxing Bell - Three rings: https://retired.sounddogs.com/sound-effects/bell-fight-vintage-boxing-219024
+- `bell-single.mp3` Boxing Bell - One ring: https://retired.sounddogs.com/sound-effects/bell-fight-vintage-boxing-219022
+---
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
