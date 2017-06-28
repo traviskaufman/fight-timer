@@ -2,6 +2,8 @@
   "name": "fight-timer",
   "version": "0.1.0",
   "private": true,
+  "author": "Travis Kaufman <travis.kaufman@gmail.com>",
+  "license": "MIT",
   "dependencies": {
     "howler": "^2.0.4",
     "immutability-helper": "^2.2.2",
@@ -11,8 +13,7 @@
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-redux": "^5.0.5",
-    "redux": "^3.7.1",
-    "rxjs": "^5.4.1"
+    "redux": "^3.7.1"
   },
   "devDependencies": {
     "eslint-config-xo-react": "^0.12.0",
@@ -23,6 +24,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "pretest": "xo",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
@@ -30,7 +32,8 @@
     "extends": "xo-react",
     "space": true,
     "envs": [
-      "browser"
+      "browser",
+      "jest"
     ],
     "rules": {
       "unicorn/filename-case": 0,

@@ -1,6 +1,6 @@
 import update from 'immutability-helper';
 
-const Status = {
+export const Status = {
   IDLE: 'IDLE',
   COUNTDOWN: 'COUNTDOWN',
   ROUND: 'ROUND',

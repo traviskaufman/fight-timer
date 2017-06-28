@@ -1,16 +1,11 @@
-import {Howl} from 'howler';
 import moment from 'moment';
 import 'moment-duration-format';
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Observable, Subject} from 'rxjs';
 
-import {tick, start, pause, resume} from './actions';
+import {start, pause, resume} from './actions';
 import './App.css';
-import bellAudio from './audio/bell.mp3';
-import bellSingleAudio from './audio/bell-single.mp3';
-import fightSticksAudio from './audio/fight-sticks.mp3';
 
 class App extends Component {
   static get propTypes() {
@@ -20,80 +15,17 @@ class App extends Component {
       currentRound: PropTypes.number.isRequired,
       timeRemainingFormatted: PropTypes.string.isRequired,
       warning: PropTypes.bool.isRequired,
-      start: PropTypes.func.isRequired,
-      tick: PropTypes.func.isRequired,
-      pause: PropTypes.func.isRequired,
-      resume: PropTypes.func.isRequired
+      onStart: PropTypes.func.isRequired,
+      onPause: PropTypes.func.isRequired,
+      onResume: PropTypes.func.isRequired
     };
   }
 
   constructor(props) {
     super(props);
-    this.handleStart = () => this.props.start();
-    this.handlePause = () => this.props.pause();
-    this.handleResume = () => this.props.resume();
-    this.tickObservable = null;
-    this.pauser = null;
-    this.tickSubscription = null;
-    this.sounds = {
-      beginBell: new Howl({
-        src: [bellAudio]
-      }),
-      endBell: new Howl({
-        src: [bellSingleAudio]
-      }),
-      warningSticks: new Howl({
-        src: [fightSticksAudio]
-      })
-    };
-  }
-
-  endTimer() {
-    if (this.tickSubscription) {
-      this.tickSubscription.unsubscribe();
-    }
-    this.tickSubscription = null;
-    this.tickObservable = null;
-    this.pauser = null;
-  }
-
-  startTimer() {
-    this.tickObservable = Observable.interval(1000);
-    this.pauser = new Subject();
-
-    const pausable = this.pauser.switchMap(paused => paused ? Observable.never() : this.tickObservable);
-    this.tickSubscription = pausable.subscribe(this.props.tick);
-    this.pauser.next(false);
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.warning !== this.props.warning && this.props.warning) {
-      this.sounds.warningSticks.play();
-      return;
-    }
-    if (prevProps.status !== this.props.status) {
-      if ((this.props.status === 'PAUSED' || prevProps.status === 'PAUSED') && this.pauser) {
-        this.pauser.next(this.props.status === 'PAUSED');
-        return;
-      }
-
-      const shouldStart = prevProps.status === 'IDLE';
-      if (shouldStart) {
-        this.startTimer();
-        return;
-      }
-
-      if (this.props.status === 'ROUND') {
-        this.sounds.beginBell.play();
-      } else if (this.props.status === 'REST') {
-        this.sounds.endBell.play();
-      }
-
-      const shouldEnd = this.props.status === 'IDLE';
-      if (shouldEnd) {
-        this.endTimer();
-      }
-    }
+    this.handleStart = () => this.props.onStart();
+    this.handlePause = () => this.props.onPause();
+    this.handleResume = () => this.props.onResume();
   }
 
   render() {
@@ -132,10 +64,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    start: () => dispatch(start()),
-    pause: () => dispatch(pause()),
-    resume: () => dispatch(resume()),
-    tick: () => dispatch(tick())
+    onStart: () => dispatch(start()),
+    onPause: () => dispatch(pause()),
+    onResume: () => dispatch(resume())
   };
 }
 
