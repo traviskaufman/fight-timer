@@ -5,6 +5,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 import {start, pause, resume} from './actions';
+import {Status} from './reducers';
 import './App.css';
 
 class App extends Component {
@@ -31,18 +32,18 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <div style={{display: this.props.status === 'IDLE' ? 'block' : 'none'}}>
+        <div style={{display: this.props.status === Status.IDLE ? 'block' : 'none'}}>
           <button type="button" onClick={this.handleStart}>Start</button>
         </div>
-        <div style={{display: this.props.status === 'IDLE' ? 'none' : 'block'}}>
+        <div style={{display: this.props.status === Status.IDLE ? 'none' : 'block'}}>
           <h3 style={{color: this.props.warning ? 'red' : 'black'}}>{this.props.status}</h3>
           <h4>Round {this.props.currentRound} / {this.props.numRounds}</h4>
           <div>
             <time>{this.props.timeRemainingFormatted}</time>
           </div>
           <div>
-            <button type="button" onClick={this.props.status === 'PAUSED' ? this.handleResume : this.handlePause}>
-              {this.props.status === 'PAUSED' ? 'Resume' : 'Pause'}
+            <button type="button" onClick={this.props.status === Status.PAUSED ? this.handleResume : this.handlePause}>
+              {this.props.status === Status.PAUSED ? 'Resume' : 'Pause'}
             </button>
           </div>
         </div>
