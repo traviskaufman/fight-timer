@@ -10,12 +10,6 @@ I'm building this because:
 - I want to build a Progressive Web App
 - I want a fight timer application that I can extend myself and that doesn't have a horrible UI
 
-## TODO
-
-- [ ] An actual User Interface
-- [ ] Configurable Rounds / Rest
-- [ ] Ability to save presets
-
 ## Audio Credits
 
 The following credit is given to the original audio creators of the samples under `src/audio`:
