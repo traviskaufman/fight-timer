@@ -14,21 +14,49 @@ import fightSticksAudio from './audio/fight-sticks.mp3';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const timerMiddleware = timerInterval();
-const soundsMiddleware = sounds({
-  roundBegin: new Howl({
-    src: [bellAudio]
-  }),
-  roundEnd: new Howl({
-    src: [bellSingleAudio]
-  }),
-  roundWarning: new Howl({
-    src: [fightSticksAudio]
-  })
-});
+// Note that html5 is needed for Safari to work correctly (ofc).
+const soundInfo = {
+  roundBegin: {
+    src: [bellAudio],
+    buffer: true,
+    html5: true
+  },
+  roundEnd: {
+    src: [bellSingleAudio],
+    buffer: true,
+    html5: true
+  },
+  roundWarning: {
+    src: [fightSticksAudio],
+    buffer: true,
+    html5: true
+  }
+};
+if (process.env.NODE_ENV === 'development') {
+  Object.keys(soundInfo).forEach(k => {
+    Object.assign(soundInfo[k], {
+      onload: () => console.info('loaded:', k),
+      onloaderror: e => console.error('loaderror:', k, '-', e)
+    });
+  });
+}
+const soundObjects = Object.keys(soundInfo).reduce((o, k) => ({...o, [k]: new Howl(soundInfo[k])}), {});
+function hackAroundMobileAudioLimitations() {
+  Object.keys(soundObjects).forEach(k => {
+    const soundObj = soundObjects[k];
+    soundObj.mute(true);
+    soundObj.play();
+    soundObj.stop();
+    soundObj.mute(false);
+  });
+  window.removeEventListener('touchstart', hackAroundMobileAudioLimitations);
+}
+window.addEventListener('touchstart', hackAroundMobileAudioLimitations);
+
+const soundsMiddleware = sounds(soundObjects);
 const store = createStore(fightTimerApp, composeEnhancers(
   applyMiddleware(timerMiddleware, soundsMiddleware)
 ));
-
 ReactDOM.render(
   <Provider store={store}>
     <App/>
